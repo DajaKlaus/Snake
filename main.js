@@ -21,7 +21,7 @@ let apple = {
     y: 320
 }
 
-const gulpSound = new Audio('gulp.mp3');
+const gulpSound = new Audio('gulp.mp3'); //suono mangio mela
 
 function getRandomInt(min, max){
     return Math.floor(Math.random() * (max - min)) + min;
@@ -53,7 +53,7 @@ function loop() {
         snake.y = 0;
     }
     // ^^
-    snake.cells.unshift({x: snake.x, y: snake.y});
+    snake.cells.unshift({x: snake.x, y: snake.y}); //posizionamento blocco
 
     if (snake.cells.length > snake.minCells) {
         snake.cells.pop();
@@ -67,11 +67,14 @@ function loop() {
 
         if (cell.x === apple.x && cell.y === apple.y) {
             snake.minCells++;
-            apple.x = getRandomInt(0, 25) * grid;
+            //creazione mela
+            apple.x = getRandomInt(0, 25) * grid; 
             apple.y = getRandomInt(0, 25) * grid;
+            // ^^
             gulpSound.play();
+
             score ++;
-            if (score > bestScore) {
+            if (score > bestScore) { //controllo miglior punteggio
                 bestScore = score; 
              }
             document.getElementById("punti").innerHTML = score;
@@ -79,7 +82,7 @@ function loop() {
         }
 
         for (let i = index + 1; i < snake.cells.length; i++) {
-            if(cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+            if(cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) { //controllo collisione corpo
                 snake.x = 160;
                 snake.y = 160;
                 snake.cells = [];
@@ -99,16 +102,16 @@ function loop() {
 }
 
 document.addEventListener('keydown', function (e) {
-    if (e.keyCode === 37 && snake.dx === 0) {
+    if (e.keyCode === 37 && snake.dx === 0) { //sinistra
         snake.dx = -grid;
         snake.dy = 0;
-    } else if (e.keyCode === 38 && snake.dy === 0) {
+    } else if (e.keyCode === 38 && snake.dy === 0) { //su
         snake.dy = -grid;
         snake.dx = 0;
-    } else if (e.keyCode === 39 && snake.dx === 0) {
+    } else if (e.keyCode === 39 && snake.dx === 0) { //destra
         snake.dx = grid;
         snake.dy = 0;
-    } else if (e.keyCode === 40 && snake.dy === 0) {
+    } else if (e.keyCode === 40 && snake.dy === 0) { //giù
         snake.dy = grid;
         snake.dx = 0;
     }
