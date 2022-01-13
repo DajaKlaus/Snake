@@ -1,3 +1,6 @@
+var score = 0;
+var bestScore = 0;
+
 let canvas = document.getElementById("game");
 let context = canvas.getContext('2d');
 
@@ -10,7 +13,7 @@ let snake = {
     dx: grid,
     dy: 0,
     cells: [],
-    maxCells: 1
+    minCells: 1
 }
 
 let apple = {
@@ -25,10 +28,10 @@ function getRandomInt(min, max){
 }
 
 function loop() {
-    requestAnimationFrame(loop); 
+    requestAnimationFrame(loop); //ripete all'infinito
 
-    if (++count < 4) {
-        return;
+    if (++count < 6) { //velocità
+        return; 
     }
 
     count = 0;
@@ -52,21 +55,27 @@ function loop() {
     // ^^
     snake.cells.unshift({x: snake.x, y: snake.y});
 
-    if (snake.cells.length > snake.maxCells) {
+    if (snake.cells.length > snake.minCells) {
         snake.cells.pop();
     }
     context.fillStyle = 'red';
     context.fillRect(apple.x, apple.y, grid - 1, grid - 1);
     
     context.fillStyle = 'yellow';
-    snake.cells.forEach(function(cell, index) {
+    snake.cells.forEach(function(cell, index) { //creazione blocco successivo
         context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
 
         if (cell.x === apple.x && cell.y === apple.y) {
-            snake.maxCells++;
+            snake.minCells++;
             apple.x = getRandomInt(0, 25) * grid;
             apple.y = getRandomInt(0, 25) * grid;
             gulpSound.play();
+            score ++;
+            if (score > bestScore) {
+                bestScore = score; 
+             }
+            document.getElementById("punti").innerHTML = score;
+            document.getElementById("Bpunti").innerHTML = bestScore;
         }
 
         for (let i = index + 1; i < snake.cells.length; i++) {
@@ -74,7 +83,7 @@ function loop() {
                 snake.x = 160;
                 snake.y = 160;
                 snake.cells = [];
-                snake.maxCells = 1;
+                snake.minCells = 1;
                 snake.dx = grid;
                 snake.y = 0;
 

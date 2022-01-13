@@ -20,6 +20,14 @@ label{
     margin-right: 10px;
 }
 
+div #score, #bestscore {
+    border: 1px solid white;
+    position: relative;
+    margin-right: 10px;
+}
+
+
+
 canvas{
     background-color: black;
     border: 1px solid white;
