@@ -87,8 +87,8 @@ function loop() {
                 snake.y = 160;
                 snake.cells = [];
                 snake.minCells = 1;
-                snake.dx = grid;
-                snake.y = 0;
+                snake.dx = 0;
+                snake.dy = 0;
 
 
                 apple.x = getRandomInt(0, 25) * grid;
@@ -102,16 +102,16 @@ function loop() {
 }
 
 document.addEventListener('keydown', function (e) {
-    if (e.keyCode === 37 && snake.dx === 0) { //sinistra
+    if (e.which === 37 && snake.dx === 0) { //sinistra
         snake.dx = -grid;
         snake.dy = 0;
-    } else if (e.keyCode === 38 && snake.dy === 0) { //su
+    } else if (e.which === 38 && snake.dy === 0) { //su
         snake.dy = -grid;
         snake.dx = 0;
-    } else if (e.keyCode === 39 && snake.dx === 0) { //destra
+    } else if (e.which === 39 && snake.dx === 0) { //destra
         snake.dx = grid;
         snake.dy = 0;
-    } else if (e.keyCode === 40 && snake.dy === 0) { //giù
+    } else if (e.which === 40 && snake.dy === 0) { //giù
         snake.dy = grid;
         snake.dx = 0;
     }
